@@ -2,6 +2,7 @@ group 'berry.justin'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
+apply plugin: 'checkstyle'
 
 sourceCompatibility = 1.8
 
