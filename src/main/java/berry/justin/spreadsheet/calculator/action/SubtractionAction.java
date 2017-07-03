@@ -7,4 +7,9 @@ public class SubtractionAction implements Action {
   public Double apply(Double... operands) {
     return roundToPrecision(operands[0] - operands[1], DEFAULT_PRECISION);
   }
+
+  @Override
+  public int numberOfOperands() {
+    return 2;
+  }
 }

@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -39,5 +40,17 @@ public class ActionFactoryTest {
   public void buildsDivisionAction() {
     assertThat(actionFactory.fromSymbol("/"),
         instanceOf(DivisionAction.class));
+  }
+
+  @Test
+  public void buildsReturnValueAction() {
+    assertThat(actionFactory.fromSymbol("99"),
+        instanceOf(ReturnValueAction.class));
+  }
+
+  @Test
+  public void returnValueActionContainsValue() {
+    assertThat(actionFactory.fromSymbol("99").apply(),
+        equalTo(99.0));
   }
 }

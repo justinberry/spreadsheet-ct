@@ -11,7 +11,6 @@ public class ActionFactory {
 
   private static final Map<String, Action> BASIC_ARITHMETIC_ACTIONS
       = new HashMap<>();
-
   static {
     BASIC_ARITHMETIC_ACTIONS.put(ADDITION, new AdditionAction());
     BASIC_ARITHMETIC_ACTIONS.put(SUBTRACTION, new SubtractionAction());
@@ -20,6 +19,12 @@ public class ActionFactory {
   }
 
   public Action fromSymbol(String symbol) {
-    return BASIC_ARITHMETIC_ACTIONS.get(symbol);
+    Action action = BASIC_ARITHMETIC_ACTIONS.get(symbol);
+
+    if (action == null) {
+      return new ReturnValueAction(Double.valueOf(symbol));
+    }
+
+    return action;
   }
 }
