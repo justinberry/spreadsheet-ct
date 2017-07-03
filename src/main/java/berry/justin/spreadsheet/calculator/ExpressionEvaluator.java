@@ -42,6 +42,7 @@ public class ExpressionEvaluator {
             .doubleValue());
         break;
       default:
+        localStack.push(Double.parseDouble(nextSymbol));
     }
 
     return localStack;

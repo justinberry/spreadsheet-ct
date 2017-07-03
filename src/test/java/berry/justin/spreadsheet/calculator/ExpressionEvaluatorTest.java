@@ -22,26 +22,45 @@ public class ExpressionEvaluatorTest {
   }
 
   @Test
-  public void calculatesSimpleAdditionProblem() {
+  public void pushesValuesOntoStack() {
+    Stack<Double> result = expressionEvaluator.evaluate(stack, "55.9");
+    assertThat(result.pop(), is(55.9));
+    assertThat(result.pop(), is(3.0));
+  }
+
+  @Test
+  public void evaluatesSimpleAdditionProblem() {
     Stack<Double> result = expressionEvaluator.evaluate(stack, "+");
     assertThat(result.peek(), is(5.0));
   }
 
   @Test
-  public void calculatesSimpleSubtractionProblem() {
+  public void evaluatesSimpleSubtractionProblem() {
     Stack<Double> result = expressionEvaluator.evaluate(stack, "-");
     assertThat(result.peek(), is(-1.0));
   }
 
   @Test
-  public void calculatesSimpleMultiplicationProblem() {
+  public void evaluatesSimpleMultiplicationProblem() {
     Stack<Double> result = expressionEvaluator.evaluate(stack, "*");
     assertThat(result.peek(), is(6.0));
   }
 
   @Test
-  public void calculatesSimpleDivisionProblem() {
+  public void evaluatesSimpleDivisionProblem() {
     Stack<Double> result = expressionEvaluator.evaluate(stack, "/");
     assertThat(result.peek(), is(0.67));
+  }
+
+  @Test
+  public void evaluatesMultipleOperations() {
+    Stack<Double> result = new Stack<>();
+    result = expressionEvaluator.evaluate(result, "1");
+    result = expressionEvaluator.evaluate(result, "2");
+    result = expressionEvaluator.evaluate(result, "+");
+    result = expressionEvaluator.evaluate(result, "4");
+    result = expressionEvaluator.evaluate(result, "*");
+    assertThat(result.size(), is(1));
+    assertThat(result.peek(), is(12.0));
   }
 }
