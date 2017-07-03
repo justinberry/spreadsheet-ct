@@ -16,7 +16,7 @@ public class ActionFactoryTest {
 
   @Before
   public void setup() {
-    actionFactory = new ActionFactory();
+    actionFactory = ActionFactory.getInstance();
   }
 
   @Test

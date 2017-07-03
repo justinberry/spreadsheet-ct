@@ -3,7 +3,7 @@ package berry.justin.spreadsheet.calculator.action;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ActionFactory {
+public final class ActionFactory {
   private static final String ADDITION = "+";
   private static final String SUBTRACTION = "-";
   private static final String MULTIPLICATION = "*";
@@ -16,6 +16,17 @@ public class ActionFactory {
     BASIC_ARITHMETIC_ACTIONS.put(SUBTRACTION, new SubtractionAction());
     BASIC_ARITHMETIC_ACTIONS.put(MULTIPLICATION, new MultiplicationAction());
     BASIC_ARITHMETIC_ACTIONS.put(DIVISION, new DivisionAction());
+  }
+
+  private static ActionFactory instance;
+
+  private ActionFactory() { }
+
+  public static ActionFactory getInstance() {
+    if (instance == null) {
+      instance = new ActionFactory();
+    }
+    return instance;
   }
 
   public Action fromSymbol(String symbol) {
