@@ -37,6 +37,12 @@ public class ActionFactoryTest {
   }
 
   @Test
+  public void buildsReferenceAction() {
+    assertThat(actionFactory.fromSymbol("A10"),
+        instanceOf(ReferenceAction.class));
+  }
+
+  @Test
   public void buildsDivisionAction() {
     assertThat(actionFactory.fromSymbol("/"),
         instanceOf(DivisionAction.class));

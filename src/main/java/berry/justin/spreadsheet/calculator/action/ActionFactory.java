@@ -21,8 +21,12 @@ public class ActionFactory {
   public Action fromSymbol(String symbol) {
     Action action = BASIC_ARITHMETIC_ACTIONS.get(symbol);
 
+    if (action == null && symbol.matches(ReferenceAction.REFERENCE_REGEX)) {
+      action = new ReferenceAction(null, symbol);
+    }
+
     if (action == null) {
-      return new ReturnValueAction(Double.valueOf(symbol));
+      action = new ReturnValueAction(Double.valueOf(symbol));
     }
 
     return action;

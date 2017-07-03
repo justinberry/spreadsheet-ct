@@ -26,11 +26,11 @@ public class ExpressionEvaluator {
   private void processSymbol(String nextSymbol) {
     Action action = actionFactory.fromSymbol(nextSymbol);
     int numberOfOperands = action.numberOfOperands();
-    Double result = action.apply(popOperands(stack, numberOfOperands));
+    Double result = action.apply(popOperands(numberOfOperands));
     stack.push(result);
   }
 
-  private Double[] popOperands(Stack<Double> stack, int numberOfOperands) {
+  private Double[] popOperands(int numberOfOperands) {
     Double[] operands = new Double[numberOfOperands];
     for (int i = numberOfOperands - 1; i >= 0; --i) {
       operands[i] = stack.pop();
