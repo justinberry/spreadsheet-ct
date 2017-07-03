@@ -8,16 +8,26 @@ import java.util.Stack;
 public class ExpressionEvaluator {
   private ActionFactory actionFactory = new ActionFactory();
 
-  public Stack<Double> evaluate(Stack<Double> stack, String nextSymbol) {
-    Stack<Double> localStack = new Stack<>();
-    localStack.addAll(stack);
+  private String expression;
+  private Stack<Double> stack;
 
+  public ExpressionEvaluator(String anExpression) {
+    expression = anExpression;
+  }
+
+  public Double evaluate() {
+    stack = new Stack<>();
+    for (String token : expression.split("\\s")) {
+      processSymbol(token);
+    }
+    return stack.peek();
+  }
+
+  private void processSymbol(String nextSymbol) {
     Action action = actionFactory.fromSymbol(nextSymbol);
     int numberOfOperands = action.numberOfOperands();
-    Double result = action.apply(popOperands(localStack, numberOfOperands));
-    localStack.push(result);
-
-    return localStack;
+    Double result = action.apply(popOperands(stack, numberOfOperands));
+    stack.push(result);
   }
 
   private Double[] popOperands(Stack<Double> stack, int numberOfOperands) {
