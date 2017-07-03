@@ -1,8 +1,10 @@
 package berry.justin.spreadsheet.calculator.action;
 
+import static berry.justin.spreadsheet.util.NumberFormatter.roundToPrecision;
+
 public class SubtractionAction implements Action {
   @Override
   public Double apply(Double... operands) {
-    return operands[0] - operands[1];
+    return roundToPrecision(operands[0] - operands[1], DEFAULT_PRECISION);
   }
 }

@@ -21,4 +21,9 @@ public class MultiplicationActionTest {
   public void multipliesOperands() {
     assertThat(multiplicationAction.apply(2.0, 4.5), is(9.0));
   }
+
+  @Test
+  public void setsPrecisionAtTwo() {
+    assertThat(multiplicationAction.apply(2.22222, 2.0), is(4.44));
+  }
 }

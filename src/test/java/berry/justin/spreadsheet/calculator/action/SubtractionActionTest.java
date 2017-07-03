@@ -21,4 +21,9 @@ public class SubtractionActionTest {
   public void subtractsOperands() {
     assertThat(subtractionAction.apply(2.0, 4.5), is(-2.5));
   }
+
+  @Test
+  public void setsPrecisionAtTwo() {
+    assertThat(subtractionAction.apply(2.33333, 1.0), is(1.33));
+  }
 }
