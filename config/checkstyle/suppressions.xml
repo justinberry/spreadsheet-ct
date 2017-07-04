@@ -6,4 +6,7 @@
 
 <suppressions>
     <suppress checks="MagicNumber" files="[\\/]test[\\/]"/>
+    <!-- In order to mock certain classes we need to disable
+         enforcement of final classes -->
+    <suppress checks="FinalClass" files=".*"/>
 </suppressions>

@@ -8,6 +8,8 @@ import java.util.Stack;
 
 public class ExpressionEvaluator {
   private static final String WHITESPACE_REGEX = "\\s+";
+  private static final String INVALID_CELL_MESSAGE =
+      "Cell expression is invalid.";
 
   private String expression;
   private Stack<Double> stack;
@@ -16,15 +18,31 @@ public class ExpressionEvaluator {
 
   public ExpressionEvaluator(List<String[]> anInputSpreadsheet,
                              String anExpression) {
-    expression = anExpression;
-    stack = new Stack<>();
+    this(anInputSpreadsheet,
+        anExpression,
+        new Stack<>(),
+        ActionFactory.getInstance());
+  }
+
+  ExpressionEvaluator(List<String[]> anInputSpreadsheet,
+                      String anExpression,
+                      Stack<Double> aStack,
+                      ActionFactory anActionFactory) {
     inputSpreadsheet = anInputSpreadsheet;
-    actionFactory = ActionFactory.getInstance();
+    expression = anExpression;
+    stack = aStack;
+    actionFactory = anActionFactory;
   }
 
   public Double evaluate() {
+    stack.clear();
+
     for (String token : expression.trim().split(WHITESPACE_REGEX)) {
       processSymbol(token);
+    }
+
+    if (stack.size() > 1) {
+      throw new IllegalArgumentException(INVALID_CELL_MESSAGE);
     }
 
     return stack.peek();

@@ -4,8 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
-public final class ActionFactory {
+public class ActionFactory {
   private static final String ADDITION = "+";
   private static final String SUBTRACTION = "-";
   private static final String MULTIPLICATION = "*";

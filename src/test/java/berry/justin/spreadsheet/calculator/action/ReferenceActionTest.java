@@ -18,21 +18,21 @@ public class ReferenceActionTest {
 
   @Before
   public void setup() {
-    String[] emptyRow = {" ", "", "", "", "", "" };
-    String[] row = {" ", "", "", "", "", "58" };
-    spreadsheet.add(emptyRow);
-    spreadsheet.add(row);
     referenceAction = new ReferenceAction(spreadsheet, "B6");
   }
 
   @Test
   public void retrievesReferenceToValue() {
+    String[] emptyRow = {" ", "", "", "", "", "" };
+    String[] row = {" ", "", "", "", "", "58" };
+    spreadsheet.add(emptyRow);
+    spreadsheet.add(row);
     assertThat(referenceAction.apply(), is(58.0));
   }
 
   @Test
   public void evaluatesReferenceToAnExpression() {
-    String[] row = {" 9 9 *", "" };
+    String[] row = {"9 9 *", "" };
     spreadsheet.add(row);
     referenceAction = new ReferenceAction(spreadsheet, "A1");
     assertThat(referenceAction.apply(), is(81.0));
@@ -40,7 +40,7 @@ public class ReferenceActionTest {
 
   @Test
   public void setsPrecisionAtTwo() {
-    String[] row = {" 3.3333333", "" };
+    String[] row = {"3.3333333", "" };
     spreadsheet.add(row);
     assertThat(new ReferenceAction(spreadsheet, "A1").apply(), is(3.33));
   }
