@@ -32,6 +32,11 @@ public class ExpressionEvaluatorTest {
   }
 
   @Test
+  public void trimsExtraWhitespacesInInput() {
+    assertThat(new ExpressionEvaluator("  1  \t2 +  4 *").evaluate(), is(12.0));
+  }
+
+  @Test
   public void isIdempotent() {
     ExpressionEvaluator instance = new ExpressionEvaluator("1 2 + 4 *");
     assertThat(instance.evaluate(), is(12.0));

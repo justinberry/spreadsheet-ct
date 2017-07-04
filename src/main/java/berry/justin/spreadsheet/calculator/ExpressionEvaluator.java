@@ -6,20 +6,21 @@ import berry.justin.spreadsheet.calculator.action.ActionFactory;
 import java.util.Stack;
 
 public class ExpressionEvaluator {
-  private static final String WHITESPACE_REGEX = "\\s";
+  private static final String WHITESPACE_REGEX = "\\s+";
 
   private String expression;
   private Stack<Double> stack;
 
   public ExpressionEvaluator(String anExpression) {
     expression = anExpression;
+    stack = new Stack<>();
   }
 
   public Double evaluate() {
-    stack = new Stack<>();
-    for (String token : expression.split(WHITESPACE_REGEX)) {
+    for (String token : expression.trim().split(WHITESPACE_REGEX)) {
       processSymbol(token);
     }
+
     return stack.peek();
   }
 
