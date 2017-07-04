@@ -1,5 +1,6 @@
 package berry.justin.spreadsheet.calculator;
 
+import berry.justin.spreadsheet.calculator.action.Action;
 import berry.justin.spreadsheet.calculator.action.ActionFactory;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,7 +10,7 @@ import java.util.Stack;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
-import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -68,6 +69,20 @@ public class ExpressionEvaluatorTest {
   }
 
   @Test(expected = IllegalArgumentException.class)
+  public void throwsErrorIfOperatorDemandExhaustsAvailableOperands() {
+    ActionFactory mockActionFactory = mock(ActionFactory.class);
+    Action mockAction = mock(Action.class);
+    when(mockAction.numberOfOperands()).thenReturn(2);
+    when(mockActionFactory.fromSymbol(eq(inputSpreadsheet), anyString()))
+        .thenReturn(mockAction);
+    evaluator = new ExpressionEvaluator(inputSpreadsheet,
+        "1 +",
+        new Stack<>(),
+        mockActionFactory);
+    evaluator.evaluate();
+  }
+
+  @Test(expected = IllegalArgumentException.class)
   public void throwsErrorIfExpressionNotResolvedAfterEvaluation() {
     evaluator = new ExpressionEvaluator(inputSpreadsheet, "1 2");
     evaluator.evaluate();
@@ -76,7 +91,7 @@ public class ExpressionEvaluatorTest {
   @Test(expected = IllegalArgumentException.class)
   public void throwsErrorIfActionThrowsAnError() {
     ActionFactory mockActionFactory = mock(ActionFactory.class);
-    when(mockActionFactory.fromSymbol(eq(inputSpreadsheet), any(String.class)))
+    when(mockActionFactory.fromSymbol(eq(inputSpreadsheet), anyString()))
         .thenThrow(IllegalArgumentException.class);
     evaluator = new ExpressionEvaluator(inputSpreadsheet,
         "1 2 +",

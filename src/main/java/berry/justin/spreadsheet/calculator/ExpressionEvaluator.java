@@ -10,6 +10,8 @@ public class ExpressionEvaluator {
   private static final String WHITESPACE_REGEX = "\\s+";
   private static final String INVALID_CELL_MESSAGE =
       "Cell expression is invalid.";
+  private static final String INSUFFICIENT_OPERANDS =
+      "Insufficient operands available for operation.";
 
   private String expression;
   private Stack<Double> stack;
@@ -56,6 +58,10 @@ public class ExpressionEvaluator {
   }
 
   private Double[] popOperands(int numberOfOperands) {
+    if (numberOfOperands > stack.size()) {
+      throw new IllegalArgumentException(INSUFFICIENT_OPERANDS);
+    }
+
     Double[] operands = new Double[numberOfOperands];
     for (int i = numberOfOperands - 1; i >= 0; --i) {
       operands[i] = stack.pop();
