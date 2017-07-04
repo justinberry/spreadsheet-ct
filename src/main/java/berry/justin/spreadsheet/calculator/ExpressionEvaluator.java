@@ -8,7 +8,7 @@ import java.util.Stack;
 
 public class ExpressionEvaluator {
   private static final String WHITESPACE_REGEX = "\\s+";
-  private static final String INVALID_CELL_MESSAGE =
+  private static final String INVALID_CELL =
       "Cell expression is invalid.";
   private static final String INSUFFICIENT_OPERANDS =
       "Insufficient operands available for operation.";
@@ -44,7 +44,7 @@ public class ExpressionEvaluator {
     }
 
     if (stack.size() > 1) {
-      throw new IllegalArgumentException(INVALID_CELL_MESSAGE);
+      throw new IllegalArgumentException(INVALID_CELL);
     }
 
     return stack.peek();

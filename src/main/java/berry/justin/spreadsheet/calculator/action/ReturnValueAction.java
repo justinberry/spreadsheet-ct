@@ -5,8 +5,12 @@ import static berry.justin.spreadsheet.util.NumberFormatter.roundToPrecision;
 public class ReturnValueAction implements Action {
   private Double value;
 
-  public ReturnValueAction(Double aValue) {
-    value = aValue;
+  public ReturnValueAction(String aValue) {
+    if (aValue.isEmpty()) {
+      value = 0.0;
+    } else {
+      value = Double.valueOf(aValue);
+    }
   }
 
   @Override

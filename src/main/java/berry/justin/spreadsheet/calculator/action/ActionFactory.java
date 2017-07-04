@@ -40,7 +40,7 @@ public class ActionFactory {
     }
 
     if (action == null) {
-      action = new ReturnValueAction(Double.valueOf(uppercaseSymbol));
+      action = new ReturnValueAction(uppercaseSymbol);
     }
 
     return action;
