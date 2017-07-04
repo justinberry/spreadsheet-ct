@@ -43,6 +43,12 @@ public class ActionFactoryTest {
   }
 
   @Test
+  public void buildsReferenceActionWithLowercaseLetters() {
+    assertThat(actionFactory.fromSymbol("a10"),
+        instanceOf(ReferenceAction.class));
+  }
+
+  @Test
   public void buildsDivisionAction() {
     assertThat(actionFactory.fromSymbol("/"),
         instanceOf(DivisionAction.class));
