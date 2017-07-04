@@ -1,21 +1,19 @@
 package berry.justin.spreadsheet.io;
 
 import com.opencsv.CSVReader;
-import com.opencsv.CSVReaderBuilder;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsSame.sameInstance;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @RunWith(JUnit4.class)
 public class SpreadsheetReaderTest {
@@ -24,11 +22,11 @@ public class SpreadsheetReaderTest {
   private CSVReader mockCsvReader;
 
   @Before
-  public void setUp() {
-    CSVReaderBuilder mockCsvReaderBuilder = mock(CSVReaderBuilder.class);
+  public void setUp() throws FileNotFoundException {
+    CSVReaderFactory mockCsvReaderFactory = mock(CSVReaderFactory.class);
     mockCsvReader = mock(CSVReader.class);
-    when(mockCsvReaderBuilder.build()).thenReturn(mockCsvReader);
-    spreadsheetReader = new SpreadsheetReader(mockCsvReaderBuilder);
+    when(mockCsvReaderFactory.create("file.csv")).thenReturn(mockCsvReader);
+    spreadsheetReader = new SpreadsheetReader(mockCsvReaderFactory, "file.csv");
   }
 
   @Test

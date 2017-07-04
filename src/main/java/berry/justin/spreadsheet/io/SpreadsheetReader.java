@@ -1,27 +1,25 @@
 package berry.justin.spreadsheet.io;
 
 import com.opencsv.CSVReader;
-import com.opencsv.CSVReaderBuilder;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
 
 public class SpreadsheetReader {
+  private CSVReaderFactory csvReaderFactory;
+  private String filename;
 
-  private CSVReaderBuilder csvReaderBuilder;
-
-  public SpreadsheetReader(String filename) throws FileNotFoundException {
-    csvReaderBuilder = new CSVReaderBuilder(new FileReader(filename));
+  public SpreadsheetReader(String aFilename) {
+    this(new CSVReaderFactory(), aFilename);
   }
 
-  SpreadsheetReader(CSVReaderBuilder builder) {
-    csvReaderBuilder = builder;
+  SpreadsheetReader(CSVReaderFactory factory, String aFilename) {
+    csvReaderFactory = factory;
+    filename = aFilename;
   }
 
   public List<String[]> readAll() throws IOException {
-    CSVReader csvReader = csvReaderBuilder.build();
+    CSVReader csvReader = csvReaderFactory.create(filename);
     List<String[]> spreadsheet = csvReader.readAll();
     csvReader.close();
     return spreadsheet;
