@@ -21,48 +21,49 @@ public class ActionFactoryTest {
 
   @Test
   public void buildsAdditionAction() {
-    assertThat(actionFactory.fromSymbol("+"), instanceOf(AdditionAction.class));
+    assertThat(actionFactory.fromSymbol(null, "+"),
+        instanceOf(AdditionAction.class));
   }
 
   @Test
   public void buildsSubtractionAction() {
-    assertThat(actionFactory.fromSymbol("-"),
+    assertThat(actionFactory.fromSymbol(null, "-"),
         instanceOf(SubtractionAction.class));
   }
 
   @Test
   public void buildsMultiplicationAction() {
-    assertThat(actionFactory.fromSymbol("*"),
+    assertThat(actionFactory.fromSymbol(null, "*"),
         instanceOf(MultiplicationAction.class));
   }
 
   @Test
   public void buildsReferenceAction() {
-    assertThat(actionFactory.fromSymbol("A10"),
+    assertThat(actionFactory.fromSymbol(null, "A10"),
         instanceOf(ReferenceAction.class));
   }
 
   @Test
   public void buildsReferenceActionWithLowercaseLetters() {
-    assertThat(actionFactory.fromSymbol("a10"),
+    assertThat(actionFactory.fromSymbol(null, "a10"),
         instanceOf(ReferenceAction.class));
   }
 
   @Test
   public void buildsDivisionAction() {
-    assertThat(actionFactory.fromSymbol("/"),
+    assertThat(actionFactory.fromSymbol(null, "/"),
         instanceOf(DivisionAction.class));
   }
 
   @Test
   public void buildsReturnValueAction() {
-    assertThat(actionFactory.fromSymbol("99"),
+    assertThat(actionFactory.fromSymbol(null, "99"),
         instanceOf(ReturnValueAction.class));
   }
 
   @Test
   public void returnValueActionContainsValue() {
-    assertThat(actionFactory.fromSymbol("99").apply(),
+    assertThat(actionFactory.fromSymbol(null, "99").apply(),
         equalTo(99.0));
   }
 }

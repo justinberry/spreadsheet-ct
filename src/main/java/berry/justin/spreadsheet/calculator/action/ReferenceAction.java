@@ -27,7 +27,8 @@ public class ReferenceAction implements Action {
     if (matcher.find()) {
       int column = (int) matcher.group(1).toUpperCase().charAt(0) - ASCII_A_INT;
       int row = Integer.valueOf(matcher.group(2)) - 1;
-      return new ExpressionEvaluator(spreadsheet.get(column)[row]).evaluate();
+      return new ExpressionEvaluator(spreadsheet,
+          spreadsheet.get(column)[row]).evaluate();
     } else {
       throw new RuntimeException(
           "Invalid reference coordinates:" + referenceCoordinates

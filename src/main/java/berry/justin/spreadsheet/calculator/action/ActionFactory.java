@@ -1,6 +1,7 @@
 package berry.justin.spreadsheet.calculator.action;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -30,13 +31,13 @@ public final class ActionFactory {
     return instance;
   }
 
-  public Action fromSymbol(String symbol) {
+  public Action fromSymbol(List<String[]> spreadsheet, String symbol) {
     String uppercaseSymbol = symbol.toUpperCase();
     Action action = BASIC_ARITHMETIC_ACTIONS.get(uppercaseSymbol);
 
     boolean isRef = uppercaseSymbol.matches(ReferenceAction.REFERENCE_REGEX);
     if (action == null && isRef) {
-      action = new ReferenceAction(null, uppercaseSymbol);
+      action = new ReferenceAction(spreadsheet, uppercaseSymbol);
     }
 
     if (action == null) {

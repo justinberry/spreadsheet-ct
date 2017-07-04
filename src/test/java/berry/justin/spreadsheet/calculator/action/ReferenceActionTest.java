@@ -31,7 +31,7 @@ public class ReferenceActionTest {
   }
 
   @Test
-  public void evaluatesAnExpression() {
+  public void evaluatesReferenceToAnExpression() {
     String[] row = {" 9 9 *", "" };
     spreadsheet.add(row);
     referenceAction = new ReferenceAction(spreadsheet, "A1");

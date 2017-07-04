@@ -3,6 +3,7 @@ package berry.justin.spreadsheet.calculator;
 import berry.justin.spreadsheet.calculator.action.Action;
 import berry.justin.spreadsheet.calculator.action.ActionFactory;
 
+import java.util.List;
 import java.util.Stack;
 
 public class ExpressionEvaluator {
@@ -10,10 +11,15 @@ public class ExpressionEvaluator {
 
   private String expression;
   private Stack<Double> stack;
+  private List<String[]> inputSpreadsheet;
+  private ActionFactory actionFactory;
 
-  public ExpressionEvaluator(String anExpression) {
+  public ExpressionEvaluator(List<String[]> anInputSpreadsheet,
+                             String anExpression) {
     expression = anExpression;
     stack = new Stack<>();
+    inputSpreadsheet = anInputSpreadsheet;
+    actionFactory = ActionFactory.getInstance();
   }
 
   public Double evaluate() {
@@ -25,7 +31,7 @@ public class ExpressionEvaluator {
   }
 
   private void processSymbol(String nextSymbol) {
-    Action action = ActionFactory.getInstance().fromSymbol(nextSymbol);
+    Action action = actionFactory.fromSymbol(inputSpreadsheet, nextSymbol);
     int numberOfOperands = action.numberOfOperands();
     Double result = action.apply(popOperands(numberOfOperands));
     stack.push(result);
