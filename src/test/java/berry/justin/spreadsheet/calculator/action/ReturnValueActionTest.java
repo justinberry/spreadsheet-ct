@@ -7,8 +7,8 @@ import static org.hamcrest.core.Is.is;
 
 public class ReturnValueActionTest {
   @Test
-  public void setsPrecisionAtTwo() {
-    assertThat(new ReturnValueAction("1.33333").apply(), is(1.33));
+  public void returnsValue() {
+    assertThat(new ReturnValueAction("1.333").apply(), is(1.333));
   }
 
   @Test

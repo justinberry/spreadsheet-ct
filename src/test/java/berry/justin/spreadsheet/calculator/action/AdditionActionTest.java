@@ -21,9 +21,4 @@ public class AdditionActionTest {
   public void addsOperands() {
     assertThat(additionAction.apply(2.0, 4.5), is(6.5));
   }
-
-  @Test
-  public void setsPrecisionAtTwo() {
-    assertThat(additionAction.apply(1.3333333, 1.0), is(2.33));
-  }
 }

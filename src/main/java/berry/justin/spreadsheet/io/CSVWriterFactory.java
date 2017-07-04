@@ -7,6 +7,8 @@ import java.io.IOException;
 
 public class CSVWriterFactory {
   public CSVWriter create(String filename) throws IOException {
-    return new CSVWriter(new FileWriter(filename));
+    return new CSVWriter(new FileWriter(filename),
+        CSVWriter.DEFAULT_SEPARATOR,
+        CSVWriter.NO_QUOTE_CHARACTER);
   }
 }

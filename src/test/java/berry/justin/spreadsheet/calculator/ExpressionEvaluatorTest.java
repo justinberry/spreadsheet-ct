@@ -45,8 +45,8 @@ public class ExpressionEvaluatorTest {
 
   @Test
   public void evaluatesSimpleDivisionProblem() {
-    evaluator = new ExpressionEvaluator(inputSpreadsheet, "2 3 /");
-    assertThat(evaluator.evaluate(), is(0.67));
+    evaluator = new ExpressionEvaluator(inputSpreadsheet, "7 5 /");
+    assertThat(evaluator.evaluate(), is(1.4));
   }
 
   @Test

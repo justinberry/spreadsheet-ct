@@ -3,11 +3,14 @@ package berry.justin.spreadsheet.util;
 import java.math.BigDecimal;
 
 public final class NumberFormatter {
+  private static final int DEFAULT_PRECISION = 2;
+
   private NumberFormatter() { }
 
-  public static Double roundToPrecision(double value, int precision) {
+  public static String formatWithScaleTwo(double value) {
     return BigDecimal.valueOf(value)
-        .setScale(precision, BigDecimal.ROUND_HALF_UP)
-        .doubleValue();
+        .setScale(DEFAULT_PRECISION, BigDecimal.ROUND_HALF_UP)
+        .stripTrailingZeros()
+        .toPlainString();
   }
 }

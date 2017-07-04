@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static berry.justin.spreadsheet.util.NumberFormatter.formatWithScaleTwo;
+
 public class SpreadsheetEvaluator {
 
   public static final String ERROR_STRING = "#ERR";
@@ -30,7 +32,7 @@ public class SpreadsheetEvaluator {
       for (int j = 0; j < inputRow.length; j++) {
         String result;
         try {
-          result = String.valueOf(evaluateRow(inputSheet, inputRow[j]));
+          result = formatWithScaleTwo(evaluateRow(inputSheet, inputRow[j]));
         } catch (IllegalArgumentException e) {
           result = ERROR_STRING;
         }

@@ -10,22 +10,17 @@ import static org.hamcrest.core.Is.is;
 @RunWith(JUnit4.class)
 public class NumberFormatterTest {
   @Test
-  public void setsPrecision() {
-    assertThat(NumberFormatter.roundToPrecision(1.3333333333, 2), is(1.33));
-  }
-
-  @Test
   public void roundsDownWhenOnLowerBound() {
-    assertThat(NumberFormatter.roundToPrecision(1.44, 1), is(1.4));
+    assertThat(NumberFormatter.formatWithScaleTwo(1.444), is("1.44"));
   }
 
   @Test
   public void roundsUpWhenOnHalfBound() {
-    assertThat(NumberFormatter.roundToPrecision(1.45, 1), is(1.5));
+    assertThat(NumberFormatter.formatWithScaleTwo(1.445), is("1.45"));
   }
 
   @Test
   public void roundsUpWhenOnUpperBound() {
-    assertThat(NumberFormatter.roundToPrecision(1.46, 1), is(1.5));
+    assertThat(NumberFormatter.formatWithScaleTwo(1.446), is("1.45"));
   }
 }

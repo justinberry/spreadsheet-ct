@@ -58,7 +58,7 @@ public class SpreadsheetEvaluatorTest {
 
   @Test
   public void populatesCellsWithErrorIfExpressionHasError() throws IOException {
-    String[] badRow = {"2 2", "1 6 +"};
+    String[] badRow = {"2 2", "*", "1 6 +"};
     List<String[]> spreadsheet = new ArrayList<String[]>() { {
       add(badRow);
     } };
@@ -66,6 +66,7 @@ public class SpreadsheetEvaluatorTest {
 
     List<String[]> evaluatedSheet = spreadsheetEvaluator.evaluate();
     assertThat(evaluatedSheet.get(0)[0], is(ERROR_STRING));
-    assertThat(evaluatedSheet.get(0)[1], is("7.0"));
+    assertThat(evaluatedSheet.get(0)[1], is(ERROR_STRING));
+    assertThat(evaluatedSheet.get(0)[2], is("7"));
   }
 }

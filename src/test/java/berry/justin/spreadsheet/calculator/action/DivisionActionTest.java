@@ -19,11 +19,6 @@ public class DivisionActionTest {
 
   @Test
   public void subtractsOperands() {
-    assertThat(divisionAction.apply(2.0, 4.5), is(0.44));
-  }
-
-  @Test
-  public void setsPrecisionAtTwo() {
-    assertThat(divisionAction.apply(1.0, 3.0), is(0.33));
+    assertThat(divisionAction.apply(15.0, 10.0), is(1.5));
   }
 }
