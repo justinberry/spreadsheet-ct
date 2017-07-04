@@ -33,7 +33,7 @@ public class SpreadsheetEvaluator {
         String result;
         try {
           result = formatWithScaleTwo(evaluateRow(inputSheet, inputRow[j]));
-        } catch (IllegalArgumentException e) {
+        } catch (RuntimeException e) {
           result = ERROR_STRING;
         }
         outputSpreadsheet.get(outputSpreadsheet.size() - 1)[j] = result;

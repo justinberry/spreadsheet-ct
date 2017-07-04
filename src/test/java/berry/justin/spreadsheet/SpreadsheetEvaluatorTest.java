@@ -50,14 +50,16 @@ public class SpreadsheetEvaluatorTest {
   }
 
   @Test
-  public void returnsSpreadsheetWithSameNumberOfColumns() throws IOException {
+  public void returnsSpreadsheetWithSameNumberOfColumns()
+      throws IOException {
     List<String[]> evaluatedSheet = spreadsheetEvaluator.evaluate();
     assertThat(evaluatedSheet.get(0).length, is(3));
     assertThat(evaluatedSheet.get(1).length, is(3));
   }
 
   @Test
-  public void populatesCellsWithErrorIfExpressionHasError() throws IOException {
+  public void populatesCellsWithErrorIfExpressionHasSyntaxError()
+      throws IOException {
     String[] badRow = {"2 2", "*", "1 6 +"};
     List<String[]> spreadsheet = new ArrayList<String[]>() { {
       add(badRow);
@@ -68,5 +70,19 @@ public class SpreadsheetEvaluatorTest {
     assertThat(evaluatedSheet.get(0)[0], is(ERROR_STRING));
     assertThat(evaluatedSheet.get(0)[1], is(ERROR_STRING));
     assertThat(evaluatedSheet.get(0)[2], is("7"));
+  }
+
+  @Test
+  public void populatesCellsWithErrorIfExpressionHasReferenceError()
+      throws IOException {
+    String[] badRow = {"B3", "1 6 +"};
+    List<String[]> spreadsheet = new ArrayList<String[]>() { {
+      add(badRow);
+    } };
+    when(spreadsheetReaderMock.readAll()).thenReturn(spreadsheet);
+
+    List<String[]> evaluatedSheet = spreadsheetEvaluator.evaluate();
+    assertThat(evaluatedSheet.get(0)[0], is(ERROR_STRING));
+    assertThat(evaluatedSheet.get(0)[1], is("7"));
   }
 }

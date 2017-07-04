@@ -37,4 +37,26 @@ public class ReferenceActionTest {
     referenceAction = new ReferenceAction(spreadsheet, "A1");
     assertThat(referenceAction.apply(), is(81.0));
   }
+
+  @Test(expected = IndexOutOfBoundsException.class)
+  public void throwsErrorIfReferenceColumnIsOutOfBounds() {
+    String[] row = {"9 9 *", ""};
+    spreadsheet.add(row);
+    referenceAction = new ReferenceAction(spreadsheet, "Z1");
+    assertThat(referenceAction.apply(), is(81.0));
+  }
+
+  @Test(expected = IndexOutOfBoundsException.class)
+  public void throwsErrorIfReferenceRowIsOutOfBounds() {
+    referenceAction = new ReferenceAction(spreadsheet, "A3");
+    assertThat(referenceAction.apply(), is(81.0));
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void throwsErrorIfRefernceIdIsInvalid() {
+    String[] row = {"9 9 *", ""};
+    spreadsheet.add(row);
+    referenceAction = new ReferenceAction(spreadsheet, "Apple3");
+    assertThat(referenceAction.apply(), is(81.0));
+  }
 }

@@ -5,7 +5,9 @@ import berry.justin.spreadsheet.io.SpreadsheetWriter;
 import java.io.IOException;
 import java.util.List;
 
-public class SpreadsheetApp {
+public final class SpreadsheetApp {
+  private SpreadsheetApp() { }
+
   public static void main(String[] args) {
     if (args.length < 2) {
       System.err.println("Provide input and output file as arguments.");
