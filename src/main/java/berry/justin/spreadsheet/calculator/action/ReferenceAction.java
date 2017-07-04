@@ -2,6 +2,7 @@ package berry.justin.spreadsheet.calculator.action;
 
 import berry.justin.spreadsheet.calculator.ExpressionEvaluator;
 
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -10,9 +11,10 @@ public class ReferenceAction implements Action {
   private static final int ASCII_A_INT = 65;
 
   private String referenceCoordinates;
-  private String[][] spreadsheet;
+  private List<String[]> spreadsheet;
 
-  public ReferenceAction(String[][] aSpreadsheet, String someReferenceCoords) {
+  public ReferenceAction(List<String[]> aSpreadsheet,
+                         String someReferenceCoords) {
     referenceCoordinates = someReferenceCoords;
     spreadsheet = aSpreadsheet;
   }
@@ -25,7 +27,7 @@ public class ReferenceAction implements Action {
     if (matcher.find()) {
       int column = (int) matcher.group(1).toUpperCase().charAt(0) - ASCII_A_INT;
       int row = Integer.valueOf(matcher.group(2)) - 1;
-      return new ExpressionEvaluator(spreadsheet[column][row]).evaluate();
+      return new ExpressionEvaluator(spreadsheet.get(column)[row]).evaluate();
     } else {
       throw new RuntimeException(
           "Invalid reference coordinates:" + referenceCoordinates
