@@ -3,9 +3,8 @@ package berry.justin.spreadsheet.calculator.action;
 import java.util.HashMap;
 import java.util.Map;
 
-import static berry.justin.spreadsheet.calculator.action.ReferenceAction.REFERENCE_REGEX;
 
-public class ActionFactory {
+public final class ActionFactory {
   private static final String ADDITION = "+";
   private static final String SUBTRACTION = "-";
   private static final String MULTIPLICATION = "*";
@@ -35,7 +34,8 @@ public class ActionFactory {
     String uppercaseSymbol = symbol.toUpperCase();
     Action action = BASIC_ARITHMETIC_ACTIONS.get(uppercaseSymbol);
 
-    if (action == null && uppercaseSymbol.matches(REFERENCE_REGEX)) {
+    boolean isRef = uppercaseSymbol.matches(ReferenceAction.REFERENCE_REGEX);
+    if (action == null && isRef) {
       action = new ReferenceAction(null, uppercaseSymbol);
     }
 
