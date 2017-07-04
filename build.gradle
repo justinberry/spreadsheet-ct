@@ -10,6 +10,17 @@ repositories {
     mavenCentral()
 }
 
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Implementation-Title': 'Spreadsheet Application',
+                'Implementation-Version': version,
+                'Main-Class': 'berry.justin.spreadsheet.SpreadsheetApp'
+    }
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
 dependencies {
     compile group: 'com.opencsv', name: 'opencsv', version: '3.10'
     testCompile group: 'org.mockito', name: 'mockito-core', version: '2.8.47'
