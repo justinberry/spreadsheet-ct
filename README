@@ -1,0 +1,55 @@
+﻿Implementation report:
+
+I chose to think about this problem as if it were for a client, so I tried to create something that could be expanded. Given it’s a spreadsheet app, the chance of more actions (e.g. in addition to +/- etc) being added seems likely, so this was an area of focus.
+
+The general structure of the application is as follows:
+
+- A top-level layer that traverses each cell, and handles the compilation of the final resulting spreadsheet at the end.
+
+- Another layer below which evaluates an expression, e.g. '1 1 +', It will traverse each symbol in an expression, and pass the logic off to the final layer.
+
+- The final layer consists of ‘Actions’ which depending on the type of token being processed, will carry out an action, e.g. ‘+’ symbol means we need to pop some values off the stack and carry out an addition action.
+
+- These layers and writing to the resulting spreadsheet is brought together in the SpreadsheetApp main class.
+
+Trade-offs/reflections:
+
+- Since actions and expressions are are only concerned about themselves, if an action needs to reference another cell (i.e. they need to know about the spreadsheet it’s contained in), this is not handled elegantly. For simplicity, I’ve simply let this knowledge leak down via passing the reference to the spreadsheet down through the layers. This could be better handled via perhaps a repository/DAO object that accesses the spreadsheet at these lower layers.
+
+- Circular references are not handled.
+
+- Double is assumed to be the only type of result that a cell can reduce to.
+
+--------------------------------------------------
+
+Machine setup:
+
+This app is written with Oracle's Java 1.8.0_131, so you'll need some variant of 1.8 installed.
+
+Compling:
+
+To compile the app into a fat jar:
+
+  ./gradlew fatJar
+
+This will create the artifact:
+
+  ./build/libs/spreadsheet-all-1.0-SNAPSHOT.jar
+
+Running:
+
+Once compiled, run the app via:
+
+  java -jar ./build/libs/spreadsheet-all-1.0-SNAPSHOT.jar <input_file> <output_file>
+
+If all's well, the output file should have been created with the result.
+
+Testing:
+
+Run tests via:
+ 
+  ./gradlew test
+
+Run checkstyle via:
+
+  ./gradle checkstyleMain checkstyleTest
