@@ -1,6 +1,6 @@
 package berry.justin.spreadsheet;
 
-import berry.justin.spreadsheet.calculator.ExpressionEvaluator;
+import berry.justin.spreadsheet.calculator.expression.ExpressionEvaluator;
 import berry.justin.spreadsheet.io.SpreadsheetReader;
 
 import java.io.IOException;

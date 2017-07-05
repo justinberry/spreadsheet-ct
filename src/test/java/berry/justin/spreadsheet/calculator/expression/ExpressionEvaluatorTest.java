@@ -1,7 +1,5 @@
-package berry.justin.spreadsheet.calculator;
+package berry.justin.spreadsheet.calculator.expression;
 
-import berry.justin.spreadsheet.calculator.action.Action;
-import berry.justin.spreadsheet.calculator.action.ActionFactory;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -19,10 +17,12 @@ public class ExpressionEvaluatorTest {
 
   private ArrayList<String[]> inputSpreadsheet;
   private ExpressionEvaluator evaluator;
+  private SymbolProcessor symbolProcessor;
 
   @Before
   public void setUp() {
     inputSpreadsheet = new ArrayList<>();
+    symbolProcessor = mock(SymbolProcessor.class);
   }
 
   @Test
@@ -69,34 +69,21 @@ public class ExpressionEvaluatorTest {
   }
 
   @Test(expected = IllegalArgumentException.class)
-  public void throwsErrorIfOperatorDemandExhaustsAvailableOperands() {
-    ActionFactory mockActionFactory = mock(ActionFactory.class);
-    Action mockAction = mock(Action.class);
-    when(mockAction.numberOfOperands()).thenReturn(2);
-    when(mockActionFactory.fromSymbol(eq(inputSpreadsheet), anyString()))
-        .thenReturn(mockAction);
-    evaluator = new ExpressionEvaluator(inputSpreadsheet,
-        "1 +",
-        new Stack<>(),
-        mockActionFactory);
-    evaluator.evaluate();
-  }
-
-  @Test(expected = IllegalArgumentException.class)
   public void throwsErrorIfExpressionNotResolvedAfterEvaluation() {
     evaluator = new ExpressionEvaluator(inputSpreadsheet, "1 2");
     evaluator.evaluate();
   }
 
   @Test(expected = IllegalArgumentException.class)
-  public void throwsErrorIfActionThrowsAnError() {
-    ActionFactory mockActionFactory = mock(ActionFactory.class);
-    when(mockActionFactory.fromSymbol(eq(inputSpreadsheet), anyString()))
+  public void throwsErrorIfSymbolCannotBeProcessed() {
+    Stack<Double> operands = new Stack<>();
+    when(symbolProcessor.process(
+        eq(inputSpreadsheet), eq(operands), anyString()))
         .thenThrow(IllegalArgumentException.class);
     evaluator = new ExpressionEvaluator(inputSpreadsheet,
         "1 2 +",
-        new Stack<>(),
-        mockActionFactory);
+        operands,
+        symbolProcessor);
     evaluator.evaluate();
   }
 }

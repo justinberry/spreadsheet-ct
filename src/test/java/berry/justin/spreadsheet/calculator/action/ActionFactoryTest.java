@@ -8,6 +8,7 @@ import org.junit.runners.JUnit4;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.IsSame.sameInstance;
 
 @RunWith(JUnit4.class)
 public class ActionFactoryTest {
@@ -65,5 +66,11 @@ public class ActionFactoryTest {
   public void returnValueActionContainsValue() {
     assertThat(actionFactory.fromSymbol(null, "99").apply(),
         equalTo(99.0));
+  }
+
+  @Test
+  public void returnsSingleton() {
+    ActionFactory instance = ActionFactory.getInstance();
+    assertThat(ActionFactory.getInstance(), sameInstance(instance));
   }
 }
