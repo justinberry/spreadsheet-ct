@@ -28,7 +28,7 @@ Machine setup:
 
 This app is written with Oracle's Java 1.8.0_131, so you'll need some variant of 1.8 installed.
 
-Compling:
+Compiling:
 
 To compile the app into a fat jar:
 
